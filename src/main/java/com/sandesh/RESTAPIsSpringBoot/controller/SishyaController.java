@@ -1,24 +1,25 @@
 package com.sandesh.RESTAPIsSpringBoot.controller;
 
+
 import com.sandesh.RESTAPIsSpringBoot.dto.SishyaDto;
 import com.sandesh.RESTAPIsSpringBoot.entity.Sishya;
-import com.sandesh.RESTAPIsSpringBoot.repository.SishyaRepository;
+import com.sandesh.RESTAPIsSpringBoot.service.SishyaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
 public class SishyaController {
 
-    private final SishyaRepository sishyaRepository;
+    private final SishyaService sishyaService;
 
-    public SishyaController(SishyaRepository sishyaRepository) {
-        this.sishyaRepository = sishyaRepository;
+    public SishyaController(SishyaService sishyaService) {
+        this.sishyaService = sishyaService;
     }
+    //instead of field dependency injection, we could have done: @RequiredArgsConstructor
 
     @GetMapping("/sishyaViewAll")
-    public List<Sishya> getSishya() {
-        return sishyaRepository.findAll();
+    public List<SishyaDto> getSishya() {
+        return sishyaService.getAllSishya();
     }
 }
