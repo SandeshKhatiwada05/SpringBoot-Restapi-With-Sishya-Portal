@@ -6,6 +6,8 @@ import com.sandesh.RESTAPIsSpringBoot.dto.SishyaInsertDTO;
 import com.sandesh.RESTAPIsSpringBoot.entity.Sishya;
 import com.sandesh.RESTAPIsSpringBoot.service.SishyaService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,18 +24,18 @@ public class SishyaController {
     //instead of field dependency injection, we could have done: @RequiredArgsConstructor
 
     @GetMapping("/ViewAll")
-    public List<SishyaDto> getSishya() {
-        return sishyaService.getAllSishya();
+    public ResponseEntity<List<SishyaDto>> getSishya() {
+        return ResponseEntity.status(HttpStatus.OK).body(sishyaService.getAllSishya()); //style 1
     }
 
     @GetMapping("/View/{id}")//path variable
-    public SishyaDto getSishyaById(@PathVariable Long id) {
-        return sishyaService.getSishyaById(id);
+    public ResponseEntity<SishyaDto> getSishyaById(@PathVariable Long id) {
+        return ResponseEntity.ok(sishyaService.getSishyaById(id)); //style 2
     }
 
     @PostMapping("/add")
-    public SishyaInsertDTO addSishya(@RequestBody SishyaInsertDTO sishyaInsertDTO) {
+    public ResponseEntity<SishyaInsertDTO> addSishya(@RequestBody SishyaInsertDTO sishyaInsertDTO) {
         sishyaService.insertSishya(sishyaInsertDTO);
-        return sishyaInsertDTO;
+        return new ResponseEntity<>(sishyaInsertDTO, HttpStatus.CREATED); //style 3
     }
 }
