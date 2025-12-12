@@ -44,4 +44,9 @@ public class SishyaController {
         sishyaService.deleteSishya(id);
         return ResponseEntity.ok("Sishya of id "+ id + " deleted successfully");
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<SishyaDto> updateSishyaById(@PathVariable Long id, @RequestBody SishyaInsertDTO sishyaInsertDTO) {
+        return ResponseEntity.ok(sishyaService.updateSishya(id, sishyaInsertDTO));
+    }
 }

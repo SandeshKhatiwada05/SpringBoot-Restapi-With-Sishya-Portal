@@ -7,6 +7,7 @@
     import com.sandesh.RESTAPIsSpringBoot.service.SishyaService;
     import jakarta.persistence.EntityNotFoundException;
     import lombok.RequiredArgsConstructor;
+    import org.jspecify.annotations.Nullable;
     import org.modelmapper.ModelMapper;
     import org.springframework.stereotype.Service;
     import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,6 +53,15 @@
                 throw new EntityNotFoundException("Sishya with id " + id + " not found");
             }
             sishyaRepository.deleteById(id);
+        }
+
+        @Override
+        public SishyaDto updateSishya(Long id, SishyaInsertDTO sishyaInsertDTO) {
+            Sishya sishya = sishyaRepository.findById(id).orElse(null);
+            if (sishya == null) return null;
+            modelMapper.map(sishyaInsertDTO, sishya);
+            sishyaRepository.save(sishya);
+            return modelMapper.map(sishya, SishyaDto.class);
         }
 
 
