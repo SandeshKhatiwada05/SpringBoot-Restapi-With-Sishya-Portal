@@ -46,6 +46,13 @@
             return "Added sishya successfully";
         }
 
+        @Override
+        public void deleteSishya(Long id) {
+            if (!sishyaRepository.existsById(id)) {
+                throw new EntityNotFoundException("Sishya with id " + id + " not found");
+            }
+            sishyaRepository.deleteById(id);
+        }
 
 
     }

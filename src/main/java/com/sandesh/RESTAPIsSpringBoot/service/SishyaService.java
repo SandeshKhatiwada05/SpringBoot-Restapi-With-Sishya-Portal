@@ -11,4 +11,5 @@ public interface SishyaService {
     public List<SishyaDto> getAllSishya();
     public SishyaDto getSishyaById(Long id);
     public String insertSishya(SishyaInsertDTO sishyaInsertDTO);
+    void deleteSishya(Long id);
 }

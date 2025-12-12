@@ -38,4 +38,10 @@ public class SishyaController {
         sishyaService.insertSishya(sishyaInsertDTO);
         return new ResponseEntity<>(sishyaInsertDTO, HttpStatus.CREATED); //style 3
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteSishyaById(@PathVariable Long id) {
+        sishyaService.deleteSishya(id);
+        return ResponseEntity.ok("Sishya of id "+ id + " deleted successfully");
+    }
 }
