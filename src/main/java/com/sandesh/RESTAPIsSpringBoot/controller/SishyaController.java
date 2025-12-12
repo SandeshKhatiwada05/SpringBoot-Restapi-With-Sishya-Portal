@@ -6,6 +6,7 @@ import com.sandesh.RESTAPIsSpringBoot.dto.SishyaInsertDTO;
 import com.sandesh.RESTAPIsSpringBoot.entity.Sishya;
 import com.sandesh.RESTAPIsSpringBoot.service.SishyaService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class SishyaController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<SishyaInsertDTO> addSishya(@RequestBody SishyaInsertDTO sishyaInsertDTO) {
+    public ResponseEntity<SishyaInsertDTO> addSishya(@RequestBody @Valid SishyaInsertDTO sishyaInsertDTO) {
         sishyaService.insertSishya(sishyaInsertDTO);
         return new ResponseEntity<>(sishyaInsertDTO, HttpStatus.CREATED); //style 3
     }
@@ -47,7 +48,7 @@ public class SishyaController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<SishyaDto> updateSishyaById(@PathVariable Long id, @RequestBody SishyaInsertDTO sishyaInsertDTO) {
+    public ResponseEntity<SishyaDto> updateSishyaById(@PathVariable Long id, @RequestBody @Valid SishyaInsertDTO sishyaInsertDTO) {
         return ResponseEntity.ok(sishyaService.updateSishya(id, sishyaInsertDTO));
     }
 
