@@ -14,6 +14,7 @@
 
     import java.util.ArrayList;
     import java.util.List;
+    import java.util.Map;
 
     @Service
     @RequiredArgsConstructor //this makes constructor instead of making constructor for DI
@@ -64,5 +65,27 @@
             return modelMapper.map(sishya, SishyaDto.class);
         }
 
-
+        @Override
+        public SishyaDto patchTheSishya(Long id, Map<String, Object> update) {
+            Sishya sishya = sishyaRepository.findById(id).orElse(null);
+            if (sishya == null) return null;
+            update.forEach((field, value) -> {
+                switch (field) {
+                    case "naam":
+                        sishya.setNaam((String) value);
+                        break;
+                    case "nivasha":
+                        sishya.setNivasha((String) value);
+                        break;
+                    case "ePatram":
+                        sishya.setEPatram((String) value);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown field: " + field);
+                }
+            });
+            sishyaRepository.save(sishya);
+            return modelMapper.map(sishya, SishyaDto.class);
+        }
     }
+

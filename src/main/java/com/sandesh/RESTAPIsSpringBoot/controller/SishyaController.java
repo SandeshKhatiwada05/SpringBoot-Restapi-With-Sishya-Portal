@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sishya")
@@ -48,5 +49,10 @@ public class SishyaController {
     @PutMapping("/update/{id}")
     public ResponseEntity<SishyaDto> updateSishyaById(@PathVariable Long id, @RequestBody SishyaInsertDTO sishyaInsertDTO) {
         return ResponseEntity.ok(sishyaService.updateSishya(id, sishyaInsertDTO));
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<SishyaDto> patchSishya(@PathVariable Long id, @RequestBody Map<String, Object> update) {
+        return ResponseEntity.status(HttpStatus.OK).body(sishyaService.patchTheSishya(id, update));
     }
 }
